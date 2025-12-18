@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface ConflictCaseRepository extends JpaRepository<ConflictCase,Long> {
-    List<ConflictCase>findByPrimaryPersonIdOrSecondarypersonId(Long primaryPersonId,Long secondaryPersonId);
+    List<ConflictCase>findByPrimaryPersonIdOrSecondaryPersonId(Long primaryPersonId,Long secondaryPersonId);
 
     
 }

@@ -1,9 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
-
 import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.entity.VendorEngagementRecord;
 import com.example.demo.service.VendorEngagementService;
 
@@ -11,30 +9,29 @@ import com.example.demo.service.VendorEngagementService;
 @RequestMapping("/api/engagements")
 public class VendorEngagementController {
     
-    private VendorEngagementService service;
-
+    private final VendorEngagementService service;  // Changed to final
+    
     public VendorEngagementController(VendorEngagementService service) {
         this.service = service;
     }
+    
     @PostMapping
-    public VendorEngagementRecord add(@RequestBody VendorEngagementRecord record){
+    public VendorEngagementRecord add(@RequestBody VendorEngagementRecord record) {
         return service.addEngagement(record);
     }
-
+    
     @GetMapping("/employee/{employeeId}")
-    public List<VendorEngagementRecord>getByEmployee(@PathVariable Long employeeId){
+    public List<VendorEngagementRecord> getByEmployee(@PathVariable Long employeeId) {
         return service.getEngagementsByEmployee(employeeId);
     }
-    @GetMapping("/vendor/{vendorid}")
-    public List<VendorEngagementRecord>getByVendor(@PathVariable Long vendorId){
+    
+    @GetMapping("/vendor/{vendorId}")
+    public List<VendorEngagementRecord> getByVendor(@PathVariable Long vendorId) {
         return service.getEngagementsByVendor(vendorId);
     }
+    
     @GetMapping
-    public List<VendorEngagementService>getAll(){
+    public List<VendorEngagementRecord> getAll() {  // Fixed return type
         return service.getAllEngagements();
     }
-
-    
-
-    
 }

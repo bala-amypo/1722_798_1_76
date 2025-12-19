@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 import java.time.LocalDateTime;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,14 +16,14 @@ public class ConflictCase {
     private String triggerSource;
     private String riskLevel;
     private String details;
-    private String status="Open";
-    private LocalDateTime declaredAt=LocalDateTime.now();
+    private String status = "Open";
+    private LocalDateTime detectedAt = LocalDateTime.now();
     
     public ConflictCase() {
     }
 
     public ConflictCase(Long id, Long primaryPersonId, Long secondaryPersonId, String triggerSource, String riskLevel,
-            String details, String status, LocalDateTime declaredAt) {
+            String details, String status, LocalDateTime detectedAt) {
         this.id = id;
         this.primaryPersonId = primaryPersonId;
         this.secondaryPersonId = secondaryPersonId;
@@ -32,7 +31,7 @@ public class ConflictCase {
         this.riskLevel = riskLevel;
         this.details = details;
         this.status = status;
-        this.declaredAt = declaredAt;
+        this.detectedAt = detectedAt;
     }
 
     public Long getId() {
@@ -91,12 +90,11 @@ public class ConflictCase {
         this.status = status;
     }
 
-    public LocalDateTime getDeclaredAt() {
-        return declaredAt;
+    public LocalDateTime getDetectedAt() {
+        return detectedAt;
     }
 
-    public void setDeclaredAt(LocalDateTime declaredAt) {
-        this.declaredAt = declaredAt;
+    public void setDetectedAt(LocalDateTime detectedAt) {
+        this.detectedAt = detectedAt;
     }
-    
 }

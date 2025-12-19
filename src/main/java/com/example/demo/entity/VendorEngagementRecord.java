@@ -19,8 +19,10 @@ public class VendorEngagementRecord {
     private double amount;
     private LocalDate engagementDate;
     private String notes;
+    
     public VendorEngagementRecord() {
     }
+    
     public VendorEngagementRecord(Long id, Long employeeId, Long vendorId, String engagementType, double amount,
             LocalDate engagementDate, String notes) {
         this.id = id;
@@ -31,47 +33,60 @@ public class VendorEngagementRecord {
         this.engagementDate = engagementDate;
         this.notes = notes;
     }
+    
     public Long getId() {
         return id;
     }
+    
     public void setId(Long id) {
         this.id = id;
     }
+    
     public Long getEmployeeId() {
         return employeeId;
     }
+    
     public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
     }
+    
     public Long getVendorId() {
         return vendorId;
     }
+    
     public void setVendorId(Long vendorId) {
         this.vendorId = vendorId;
     }
+    
     public String getEngagementType() {
         return engagementType;
     }
+    
     public void setEngagementType(String engagementType) {
         this.engagementType = engagementType;
     }
+    
     public double getAmount() {
         return amount;
     }
+    
     public void setAmount(double amount) {
         this.amount = amount;
     }
+    
     public LocalDate getEngagementDate() {
         return engagementDate;
     }
+    
     public void setEngagementDate(LocalDate engagementDate) {
         this.engagementDate = engagementDate;
     }
+    
     public String getNotes() {
         return notes;
     }
+    
     public void setNotes(String notes) {
         this.notes = notes;
     }
-
 }

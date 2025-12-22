@@ -31,7 +31,7 @@ public class VendorEngagementController {
     }
     
     @GetMapping
-    public List<VendorEngagementRecord> getAll() {  // Fixed return type
+    public List<VendorEngagementRecord> getAll() {
         return service.getAllEngagements();
     }
 }

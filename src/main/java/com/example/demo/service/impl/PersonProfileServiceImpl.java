@@ -18,16 +18,14 @@ public class PersonProfileServiceImpl implements PersonProfileService {
     
     @Override
     public Personprofile createPerson(Personprofile person) {
-        // Check for duplicate email
         Optional<Personprofile> existingByEmail = personProfileRepository.findByEmail(person.getEmail());
         if (existingByEmail.isPresent()) {
-            return null; // Duplicate email
+            return null;
         }
         
-        // Check for duplicate referenceId
         Optional<Personprofile> existingByRefId = personProfileRepository.findByReferenceId(person.getReferenceId());
         if (existingByRefId.isPresent()) {
-            return null; // Duplicate reference ID
+            return null;
         }
         
         return personProfileRepository.save(person);

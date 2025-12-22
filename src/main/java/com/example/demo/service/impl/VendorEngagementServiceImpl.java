@@ -31,7 +31,7 @@ public class VendorEngagementServiceImpl implements VendorEngagementService {
     }
     
     @Override
-    public List<VendorEngagementRecord> getAllEngagements() {  // Fixed return type
+    public List<VendorEngagementRecord> getAllEngagements() { 
         return vendorEngagementRecordRepository.findAll();
     }
 }

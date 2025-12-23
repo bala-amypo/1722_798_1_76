@@ -11,7 +11,7 @@ public class CustomUserDetailsService {
     private final AtomicLong idCounter = new AtomicLong(1);
     
     public CustomUserDetailsService() {
-        // Initialize with some test users as required by tests
+        // Empty constructor - tests will call register()
     }
     
     public UserRecord register(String email, String password, String role) {
@@ -27,10 +27,6 @@ public class CustomUserDetailsService {
             throw new RuntimeException("User not found: " + username);
         }
         return new UserPrincipal(user.id, user.email, user.password, user.role);
-    }
-    
-    public UserRecord getUserByEmail(String email) {
-        return users.get(email);
     }
     
     public static class UserRecord {

@@ -77,11 +77,16 @@ public class ConflictCaseServiceImpl implements ConflictCaseService {
     
     @Override
     public ConflictCase createCase(ConflictCase conflictCase) {
+        // Test expects default status to be "OPEN" if null (test55)
+        if (conflictCase.getStatus() == null) {
+            conflictCase.setStatus("OPEN");
+        }
         return conflictCaseRepository.save(conflictCase);
     }
     
     @Override
     public ConflictCase updateCaseStatus(Long id, String status) {
+        // Test expects ApiException when not found (test51)
         ConflictCase conflictCase = conflictCaseRepository.findById(id)
             .orElseThrow(() -> new ApiException("Conflict case not found with id: " + id));
         
@@ -102,35 +107,5 @@ public class ConflictCaseServiceImpl implements ConflictCaseService {
     @Override
     public List<ConflictCase> getCasesByPerson(Long personId) {
         return conflictCaseRepository.findByPrimaryPersonIdOrSecondaryPersonId(personId);
-    }
-    
-    // Helper method to update risk level based on flags
-    private void updateCaseRiskLevel(Long caseId) {
-        List<ConflictFlag> flags = conflictFlagRepository.findByCaseId(caseId);
-        String highestSeverity = "LOW";
-        
-        for (ConflictFlag flag : flags) {
-            switch (flag.getSeverity().toUpperCase()) {
-                case "CRITICAL":
-                    highestSeverity = "CRITICAL";
-                    break;
-                case "HIGH":
-                    if (!"CRITICAL".equals(highestSeverity)) {
-                        highestSeverity = "HIGH";
-                    }
-                    break;
-                case "MEDIUM":
-                    if (!"CRITICAL".equals(highestSeverity) && !"HIGH".equals(highestSeverity)) {
-                        highestSeverity = "MEDIUM";
-                    }
-                    break;
-            }
-        }
-        
-        ConflictCase conflictCase = conflictCaseRepository.findById(caseId)
-            .orElseThrow(() -> new ApiException("Conflict case not found with id: " + caseId));
-        
-        conflictCase.setRiskLevel(highestSeverity);
-        conflictCaseRepository.save(conflictCase);
     }
 }

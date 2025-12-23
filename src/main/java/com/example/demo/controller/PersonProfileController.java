@@ -67,8 +67,12 @@ public class PersonProfileController {
     
     @PostMapping
     public ResponseEntity<PersonProfile> create(@RequestBody PersonProfile person) {
-        PersonProfile created = personProfileService.createPerson(person);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+        try {
+            PersonProfile created = personProfileService.createPerson(person);
+            return ResponseEntity.status(HttpStatus.CREATED).body(created);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
     
     @GetMapping("/lookup")

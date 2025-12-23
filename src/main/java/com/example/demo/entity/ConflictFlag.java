@@ -1,3 +1,50 @@
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "conflict_flags")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ConflictFlag {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull(message = "Case ID is required")
+    @Column(name = "case_id", nullable = false)
+    private Long caseId;
+
+    @NotBlank(message = "Flag type is required")
+    @Column(name = "flag_type", nullable = false)
+    private String flagType; // HIGH_AMOUNT, FAMILY_RELATIONSHIP, SAME_DEPARTMENT
+
+    @NotBlank(message = "Severity is required")
+    @Column(name = "severity", nullable = false)
+    private String severity; // LOW, MEDIUM, HIGH
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "is_resolved")
+    private Boolean isResolved = false;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(name = "resolved_at")
+    private LocalDateTime resolvedAt;
+}
+
+
+
 // package com.example.demo.entity;
 
 // import java.time.LocalDateTime;
@@ -80,47 +127,3 @@
 // }
 
 
-package com.example.demo.entity;
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "conflict_flags")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class ConflictFlag {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotNull(message = "Case ID is required")
-    @Column(name = "case_id", nullable = false)
-    private Long caseId;
-
-    @NotBlank(message = "Flag type is required")
-    @Column(name = "flag_type", nullable = false)
-    private String flagType; // HIGH_AMOUNT, FAMILY_RELATIONSHIP, SAME_DEPARTMENT
-
-    @NotBlank(message = "Severity is required")
-    @Column(name = "severity", nullable = false)
-    private String severity; // LOW, MEDIUM, HIGH
-
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "is_resolved")
-    private Boolean isResolved = false;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Column(name = "resolved_at")
-    private LocalDateTime resolvedAt;
-}

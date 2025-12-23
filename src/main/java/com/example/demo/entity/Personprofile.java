@@ -1,3 +1,51 @@
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Entity
+@Table(name = "person_profiles")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Personprofile {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email should be valid")
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @NotBlank(message = "Reference ID is required")
+    @Column(name = "reference_id", unique = true, nullable = false)
+    private String referenceId;
+
+    @NotBlank(message = "Full name is required")
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
+
+    @Column(name = "person_type")
+    private String personType; // EMPLOYEE, VENDOR, APPLICANT
+
+    private String department;
+    
+    @Column(name = "relationship_declared")
+    private Boolean relationshipDeclared = false;
+
+    @Column(name = "created_at")
+    private java.time.LocalDateTime createdAt = java.time.LocalDateTime.now();
+
+    @Column(name = "updated_at")
+    private java.time.LocalDateTime updatedAt = java.time.LocalDateTime.now();
+}
+
+
 // package com.example.demo.entity;
 
 // import java.time.LocalDateTime;
@@ -107,49 +155,3 @@
 // }   
 
 
-package com.example.demo.entity;
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-
-@Entity
-@Table(name = "person_profiles")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Personprofile {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotBlank(message = "Email is required")
-    @Email(message = "Email should be valid")
-    @Column(unique = true, nullable = false)
-    private String email;
-
-    @NotBlank(message = "Reference ID is required")
-    @Column(name = "reference_id", unique = true, nullable = false)
-    private String referenceId;
-
-    @NotBlank(message = "Full name is required")
-    @Column(name = "full_name", nullable = false)
-    private String fullName;
-
-    @Column(name = "person_type")
-    private String personType; // EMPLOYEE, VENDOR, APPLICANT
-
-    private String department;
-    
-    @Column(name = "relationship_declared")
-    private Boolean relationshipDeclared = false;
-
-    @Column(name = "created_at")
-    private java.time.LocalDateTime createdAt = java.time.LocalDateTime.now();
-
-    @Column(name = "updated_at")
-    private java.time.LocalDateTime updatedAt = java.time.LocalDateTime.now();
-}

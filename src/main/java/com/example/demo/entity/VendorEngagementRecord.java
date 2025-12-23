@@ -1,3 +1,62 @@
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "vendor_engagement_records")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class VendorEngagementRecord {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull(message = "Employee ID is required")
+    @Column(name = "employee_id", nullable = false)
+    private Long employeeId;
+
+    @NotNull(message = "Vendor ID is required")
+    @Column(name = "vendor_id", nullable = false)
+    private Long vendorId;
+
+    @NotBlank(message = "Engagement type is required")
+    @Column(name = "engagement_type", nullable = false)
+    private String engagementType; // CONTRACT, CONSULTING, SERVICE
+
+    @Column(name = "project_name")
+    private String projectName;
+
+    @NotNull(message = "Amount is required")
+    @Column(name = "amount", nullable = false)
+    private Double amount;
+
+    @NotNull(message = "Engagement date is required")
+    @Column(name = "engagement_date", nullable = false)
+    private LocalDate engagementDate;
+
+    @Column(name = "end_date")
+    private LocalDate endDate;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "created_at")
+    private java.time.LocalDateTime createdAt = java.time.LocalDateTime.now();
+
+    @Column(name = "risk_level")
+    private String riskLevel; // LOW, MEDIUM, HIGH
+}
+
+
+
+
 // package com.example.demo.entity;
 
 // import java.time.LocalDate;
@@ -94,58 +153,3 @@
 
 
 
-package com.example.demo.entity;
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import java.time.LocalDate;
-
-@Entity
-@Table(name = "vendor_engagement_records")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class VendorEngagementRecord {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotNull(message = "Employee ID is required")
-    @Column(name = "employee_id", nullable = false)
-    private Long employeeId;
-
-    @NotNull(message = "Vendor ID is required")
-    @Column(name = "vendor_id", nullable = false)
-    private Long vendorId;
-
-    @NotBlank(message = "Engagement type is required")
-    @Column(name = "engagement_type", nullable = false)
-    private String engagementType; // CONTRACT, CONSULTING, SERVICE
-
-    @Column(name = "project_name")
-    private String projectName;
-
-    @NotNull(message = "Amount is required")
-    @Column(name = "amount", nullable = false)
-    private Double amount;
-
-    @NotNull(message = "Engagement date is required")
-    @Column(name = "engagement_date", nullable = false)
-    private LocalDate engagementDate;
-
-    @Column(name = "end_date")
-    private LocalDate endDate;
-
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "created_at")
-    private java.time.LocalDateTime createdAt = java.time.LocalDateTime.now();
-
-    @Column(name = "risk_level")
-    private String riskLevel; // LOW, MEDIUM, HIGH
-}

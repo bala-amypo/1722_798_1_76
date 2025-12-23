@@ -1,3 +1,59 @@
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "conflict_cases")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ConflictCase {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull(message = "Primary person ID is required")
+    @Column(name = "primary_person_id", nullable = false)
+    private Long primaryPersonId;
+
+    @NotNull(message = "Secondary person ID is required")
+    @Column(name = "secondary_person_id", nullable = false)
+    private Long secondaryPersonId;
+
+    @NotBlank(message = "Trigger source is required")
+    @Column(name = "trigger_source", nullable = false)
+    private String triggerSource; // ENGAGEMENT, DECLARATION, MANUAL
+
+    @NotBlank(message = "Risk level is required")
+    @Column(name = "risk_level", nullable = false)
+    private String riskLevel; // LOW, MEDIUM, HIGH, CRITICAL
+
+    @Column(name = "status")
+    private String status = "OPEN"; // OPEN, INVESTIGATING, RESOLVED, CLOSED
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "resolution_notes")
+    private String resolutionNotes;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt = LocalDateTime.now();
+
+    @Column(name = "resolved_at")
+    private LocalDateTime resolvedAt;
+}
+
+
+
 // package com.example.demo.entity;
 
 // import java.time.LocalDateTime;
@@ -101,56 +157,3 @@
 
 
 
-package com.example.demo.entity;
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "conflict_cases")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class ConflictCase {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotNull(message = "Primary person ID is required")
-    @Column(name = "primary_person_id", nullable = false)
-    private Long primaryPersonId;
-
-    @NotNull(message = "Secondary person ID is required")
-    @Column(name = "secondary_person_id", nullable = false)
-    private Long secondaryPersonId;
-
-    @NotBlank(message = "Trigger source is required")
-    @Column(name = "trigger_source", nullable = false)
-    private String triggerSource; // ENGAGEMENT, DECLARATION, MANUAL
-
-    @NotBlank(message = "Risk level is required")
-    @Column(name = "risk_level", nullable = false)
-    private String riskLevel; // LOW, MEDIUM, HIGH, CRITICAL
-
-    @Column(name = "status")
-    private String status = "OPEN"; // OPEN, INVESTIGATING, RESOLVED, CLOSED
-
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "resolution_notes")
-    private String resolutionNotes;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt = LocalDateTime.now();
-
-    @Column(name = "resolved_at")
-    private LocalDateTime resolvedAt;
-}

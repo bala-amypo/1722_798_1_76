@@ -1,4 +1,4 @@
-// UserPrincipal.java
+// File: src/main/java/com/example/demo/security/UserPrincipal.java
 package com.example.demo.security;
 
 public class UserPrincipal {

@@ -1,4 +1,3 @@
-// CustomUserDetailsService.java
 package com.example.demo.security;
 
 import java.util.HashMap;
@@ -11,7 +10,7 @@ public class CustomUserDetailsService {
     private final AtomicLong idCounter = new AtomicLong(1);
     
     public CustomUserDetailsService() {
-        // Empty constructor - tests will call register()
+        // Empty constructor
     }
     
     public UserRecord register(String email, String password, String role) {

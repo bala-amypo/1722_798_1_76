@@ -31,7 +31,7 @@ public class Personprofile {
     private String fullName;
 
     @Column(name = "person_type")
-    private String personType; // EMPLOYEE, VENDOR, APPLICANT
+    private String personType;
 
     private String department;
     

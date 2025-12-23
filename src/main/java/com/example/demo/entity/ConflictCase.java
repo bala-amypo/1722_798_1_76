@@ -27,14 +27,14 @@ public class ConflictCase {
 
     @NotBlank(message = "Trigger source is required")
     @Column(name = "trigger_source", nullable = false)
-    private String triggerSource; // ENGAGEMENT, DECLARATION, MANUAL
+    private String triggerSource;
 
     @NotBlank(message = "Risk level is required")
     @Column(name = "risk_level", nullable = false)
-    private String riskLevel; // LOW, MEDIUM, HIGH, CRITICAL
+    private String riskLevel; 
 
     @Column(name = "status")
-    private String status = "OPEN"; // OPEN, INVESTIGATING, RESOLVED, CLOSED
+    private String status = "OPEN"; 
 
     @Column(name = "description")
     private String description;

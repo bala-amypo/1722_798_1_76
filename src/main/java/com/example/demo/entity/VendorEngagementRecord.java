@@ -28,7 +28,7 @@ public class VendorEngagementRecord {
 
     @NotBlank(message = "Engagement type is required")
     @Column(name = "engagement_type", nullable = false)
-    private String engagementType; // CONTRACT, CONSULTING, SERVICE
+    private String engagementType; 
 
     @Column(name = "project_name")
     private String projectName;
@@ -51,7 +51,7 @@ public class VendorEngagementRecord {
     private java.time.LocalDateTime createdAt = java.time.LocalDateTime.now();
 
     @Column(name = "risk_level")
-    private String riskLevel; // LOW, MEDIUM, HIGH
+    private String riskLevel;
 }
 
 

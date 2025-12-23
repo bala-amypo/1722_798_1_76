@@ -24,11 +24,11 @@ public class ConflictFlag {
 
     @NotBlank(message = "Flag type is required")
     @Column(name = "flag_type", nullable = false)
-    private String flagType; // HIGH_AMOUNT, FAMILY_RELATIONSHIP, SAME_DEPARTMENT
+    private String flagType;
 
     @NotBlank(message = "Severity is required")
     @Column(name = "severity", nullable = false)
-    private String severity; // LOW, MEDIUM, HIGH
+    private String severity; 
 
     @Column(name = "description")
     private String description;

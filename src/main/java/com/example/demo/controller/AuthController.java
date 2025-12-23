@@ -135,7 +135,7 @@ package com.example.demo.controller;
 
 import com.example.demo.security.CustomUserDetailsService;
 import com.example.demo.security.JwtTokenProvider;
-import com.example.demo.security.UserPrinciple;
+import com.example.demo.security.UserPrincipal;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;

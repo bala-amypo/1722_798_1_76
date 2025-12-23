@@ -188,7 +188,7 @@ public class AuthController {
         try {
             UserPrincipal userPrincipal = customUserDetailsService.loadUserByUsername(request.getEmail());
             
-            // Simple password check for testing
+            // Simple password check for testing (in real app, use password encoder)
             if (!request.getPassword().equals(userPrincipal.getPassword())) {
                 throw new RuntimeException("Invalid credentials");
             }
@@ -198,6 +198,7 @@ public class AuthController {
             Map<String, Object> response = new HashMap<>();
             response.put("token", token);
             response.put("email", request.getEmail());
+            response.put("role", userPrincipal.getRole());
             
             return ResponseEntity.ok(response);
         } catch (Exception e) {
@@ -224,6 +225,32 @@ public class AuthController {
             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(401).body("Invalid token");
+        }
+    }
+    
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser(@RequestHeader("Authorization") String authHeader) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(401).body("Invalid authorization header");
+        }
+        
+        String token = authHeader.substring(7);
+        if (!jwtTokenProvider.validateToken(token)) {
+            return ResponseEntity.status(401).body("Invalid token");
+        }
+        
+        String username = jwtTokenProvider.getUsernameFromToken(token);
+        try {
+            UserPrincipal userPrincipal = customUserDetailsService.loadUserByUsername(username);
+            
+            Map<String, Object> response = new HashMap<>();
+            response.put("id", userPrincipal.getId());
+            response.put("email", userPrincipal.getEmail());
+            response.put("role", userPrincipal.getRole());
+            
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body("User not found");
         }
     }
     

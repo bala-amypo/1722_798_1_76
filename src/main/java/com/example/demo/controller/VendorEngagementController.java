@@ -35,3 +35,53 @@
 //         return service.getAllEngagements();
 //     }
 // }
+
+
+
+package com.example.demo.controller;
+
+import com.example.demo.model.VendorEngagementRecord;
+import com.example.demo.service.VendorEngagementService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/engagements")
+public class VendorEngagementController {
+    
+    private final VendorEngagementService vendorEngagementService;
+    
+    public VendorEngagementController(VendorEngagementService vendorEngagementService) {
+        this.vendorEngagementService = vendorEngagementService;
+    }
+    
+    @PostMapping
+    public ResponseEntity<VendorEngagementRecord> addEngagement(@RequestBody VendorEngagementRecord record) {
+        try {
+            VendorEngagementRecord saved = vendorEngagementService.addEngagement(record);
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+    
+    @GetMapping("/employee/{employeeId}")
+    public ResponseEntity<List<VendorEngagementRecord>> getByEmployee(@PathVariable Long employeeId) {
+        List<VendorEngagementRecord> engagements = vendorEngagementService.getEngagementsByEmployee(employeeId);
+        return ResponseEntity.ok(engagements);
+    }
+    
+    @GetMapping("/vendor/{vendorId}")
+    public ResponseEntity<List<VendorEngagementRecord>> getByVendor(@PathVariable Long vendorId) {
+        List<VendorEngagementRecord> engagements = vendorEngagementService.getEngagementsByVendor(vendorId);
+        return ResponseEntity.ok(engagements);
+    }
+    
+    @GetMapping
+    public ResponseEntity<List<VendorEngagementRecord>> getAllEngagements() {
+        List<VendorEngagementRecord> engagements = vendorEngagementService.getAllEngagements();
+        return ResponseEntity.ok(engagements);
+    }
+}

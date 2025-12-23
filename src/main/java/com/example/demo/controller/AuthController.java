@@ -129,3 +129,128 @@
 //         public void setRole(String role) { this.role = role; }
 //     }
 // }
+
+
+package com.example.demo.controller;
+
+import com.example.demo.security.CustomUserDetailsService;
+import com.example.demo.security.JwtTokenProvider;
+import com.example.demo.security.UserPrinciple;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+    
+    private final JwtTokenProvider jwtTokenProvider;
+    private final CustomUserDetailsService customUserDetailsService;
+    
+    public AuthController(JwtTokenProvider jwtTokenProvider, 
+                         CustomUserDetailsService customUserDetailsService) {
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.customUserDetailsService = customUserDetailsService;
+    }
+    
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        try {
+            var userRecord = customUserDetailsService.register(
+                request.getEmail(), 
+                request.getPassword(), 
+                request.getRole()
+            );
+            
+            UserPrinciple userPrincipal = customUserDetailsService.loadUserByUsername(request.getEmail());
+            String token = jwtTokenProvider.generateToken(userPrincipal);
+            
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "User registered successfully");
+            response.put("token", token);
+            response.put("user", Map.of(
+                "id", userRecord.getId(),
+                "email", userRecord.getEmail(),
+                "role", userRecord.getRole()
+            ));
+            
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(error);
+        }
+    }
+    
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        try {
+            UserPrinciple userPrincipal = customUserDetailsService.loadUserByUsername(request.getEmail());
+            
+            // Simple password check for testing
+            if (!request.getPassword().equals(userPrincipal.getPassword())) {
+                throw new RuntimeException("Invalid credentials");
+            }
+            
+            String token = jwtTokenProvider.generateToken(userPrincipal);
+            
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", token);
+            response.put("email", request.getEmail());
+            
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Invalid credentials");
+            return ResponseEntity.status(401).body(error);
+        }
+    }
+    
+    @GetMapping("/validate")
+    public ResponseEntity<?> validateToken(@RequestHeader("Authorization") String authHeader) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(401).body("Invalid authorization header");
+        }
+        
+        String token = authHeader.substring(7);
+        boolean isValid = jwtTokenProvider.validateToken(token);
+        
+        if (isValid) {
+            String username = jwtTokenProvider.getUsernameFromToken(token);
+            Map<String, Object> response = new HashMap<>();
+            response.put("valid", true);
+            response.put("username", username);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(401).body("Invalid token");
+        }
+    }
+    
+    // Request DTOs
+    public static class LoginRequest {
+        private String email;
+        private String password;
+        
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
+        
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
+    }
+    
+    public static class RegisterRequest {
+        private String email;
+        private String password;
+        private String role = "USER";
+        
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
+        
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
+        
+        public String getRole() { return role; }
+        public void setRole(String role) { this.role = role; }
+    }
+}

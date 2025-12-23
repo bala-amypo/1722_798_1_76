@@ -121,7 +121,7 @@ import lombok.AllArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonProfile {
+public class Personprofile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -163,7 +163,7 @@ public class AuthController {
                 request.getRole()
             );
             
-            UserPrinciple userPrincipal = customUserDetailsService.loadUserByUsername(request.getEmail());
+            UserPrincipal userPrincipal = customUserDetailsService.loadUserByUsername(request.getEmail());
             String token = jwtTokenProvider.generateToken(userPrincipal);
             
             Map<String, Object> response = new HashMap<>();
@@ -186,7 +186,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         try {
-            UserPrinciple userPrincipal = customUserDetailsService.loadUserByUsername(request.getEmail());
+            UserPrincipal userPrincipal = customUserDetailsService.loadUserByUsername(request.getEmail());
             
             // Simple password check for testing
             if (!request.getPassword().equals(userPrincipal.getPassword())) {

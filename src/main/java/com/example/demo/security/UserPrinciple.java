@@ -1,4 +1,3 @@
-// UserPrincipal.java
 package com.example.demo.security;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -12,19 +11,21 @@ public class UserPrincipal implements UserDetails {
     private String email;
     private String password;
     private String role;
+    private Collection<? extends GrantedAuthority> authorities;
     
     public UserPrincipal(Long id, String email, String password, String role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
     }
     
     public Long getId() { return id; }
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
+        return authorities;
     }
     
     @Override
@@ -44,4 +45,6 @@ public class UserPrincipal implements UserDetails {
     
     @Override
     public boolean isEnabled() { return true; }
+    
+    public String getRole() { return role; }
 }

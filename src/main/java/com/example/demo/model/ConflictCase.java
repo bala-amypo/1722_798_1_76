@@ -29,11 +29,8 @@ public class ConflictCase {
     
     @Column(name = "detected_at")
     private LocalDateTime detectedAt = LocalDateTime.now();
-    
-    // Constructors
     public ConflictCase() {}
     
-    // Getters and Setters
     public Long getId() {
         return id;
     }

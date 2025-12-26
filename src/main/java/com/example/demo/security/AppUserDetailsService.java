@@ -72,7 +72,7 @@ public class AppUserDetailsService implements UserDetailsService {
         }
         throw new UsernameNotFoundException("User not found: " + username);
     }
-    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     // Add this method for registration
     public void registerUser(String email, String password) {
         users.put(email, password);

@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-public class OpenApiConfig {
+public class SwaggerConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
@@ -50,7 +50,7 @@ public class OpenApiConfig {
                                 .name("Apache 2.0")
                                 .url("http://springdoc.org")))
                 .servers(List.of(
-                        new Server().url("https://9246.pro604cr.amypo.ai/").description("Production Server"),
+                        new Server().url("https://9252.pro604cr.amypo.ai/").description("Production Server"),
                         new Server().url("http://localhost:8080").description("Local Server")
                 ))
                 // Add global security requirement

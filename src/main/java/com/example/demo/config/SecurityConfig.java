@@ -15,22 +15,9 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                // Permit ALL authentication endpoints
-                .requestMatchers("/auth/**").permitAll()
-                
-                // Permit Swagger/OpenAPI endpoints
-                .requestMatchers(
-                    "/swagger-ui/**",
-                    "/v3/api-docs/**",
-                    "/swagger-ui.html",
-                    "/webjars/**",
-                    "/swagger-resources/**"
-                ).permitAll()
-                
-                // Permit your API endpoints (if needed)
-                .requestMatchers("/api/persons").permitAll()
-                
-                // All other endpoints require authentication
+                // Public endpoints
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .requestMatchers("/api/**").permitAll()  // Allow all API calls
                 .anyRequest().authenticated()
             );
         

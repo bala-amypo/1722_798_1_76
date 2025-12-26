@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,6 @@ public class AuthController {
     })
     public ResponseEntity<?> register(@RequestBody AuthRequest request) {
         try {
-            // In a real app, you'd check if user exists first
             userDetailsService.registerUser(request.getEmail(), request.getPassword());
             
             Map<String, String> response = new HashMap<>();
@@ -55,9 +55,8 @@ public class AuthController {
     })
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
         try {
-            var userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+            UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
             
-            // Check password (in memory, no encoding)
             if (userDetails.getPassword().equals("{noop}" + request.getPassword())) {
                 String token = jwtTokenProvider.generateToken(request.getEmail());
                 
@@ -74,38 +73,21 @@ public class AuthController {
         }
     }
     
-    // Simple DTO
     public static class AuthRequest {
         private String email;
         private String password;
         private String role;
         
-        public String getEmail() {
-            return email;
-        }
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
         
-        public void setEmail(String email) {
-            this.email = email;
-        }
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
         
-        public String getPassword() {
-            return password;
-        }
-        
-        public void setPassword(String password) {
-            this.password = password;
-        }
-        
-        public String getRole() {
-            return role;
-        }
-        
-        public void setRole(String role) {
-            this.role = role;
-        }
+        public String getRole() { return role; }
+        public void setRole(String role) { this.role = role; }
     }
 }
-
 
 // // package com.example.demo.controller;
 

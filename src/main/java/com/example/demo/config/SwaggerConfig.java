@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -14,6 +15,16 @@ import org.springframework.context.annotation.Configuration;
         version = "1.0",
         description = "Conflict of Interest Engine Backend API"
     ),
+    servers = {
+        @Server(
+            url = "https://9252.pro604cr.amypo.ai",
+            description = "Production Server"
+        ),
+        @Server(
+            url = "http://localhost:8080",
+            description = "Local Development Server"
+        )
+    },
     security = @SecurityRequirement(name = "bearerAuth")
 )
 @SecurityScheme(

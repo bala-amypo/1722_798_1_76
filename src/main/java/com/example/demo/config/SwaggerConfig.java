@@ -1,41 +1,3 @@
-// package com.example.demo.config;
-
-// import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-// import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
-// import io.swagger.v3.oas.annotations.info.Info;
-// import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-// import io.swagger.v3.oas.annotations.security.SecurityScheme;
-// import io.swagger.v3.oas.annotations.servers.Server;
-// import org.springframework.context.annotation.Configuration;
-
-// @Configuration
-// @OpenAPIDefinition(
-//     info = @Info(
-//         title = "COI Engine API",
-//         version = "1.0",
-//         description = "Conflict of Interest Engine Backend API"
-//     ),
-//     servers = {
-//         @Server(
-//             url = "https://9252.pro604cr.amypo.ai",
-//             description = "Production Server"
-//         ),
-//         @Server(
-//             url = "http://localhost:8080",
-//             description = "Local Development Server"
-//         )
-//     },
-//     security = @SecurityRequirement(name = "bearerAuth")
-// )
-// @SecurityScheme(
-//     name = "bearerAuth",
-//     type = SecuritySchemeType.HTTP,
-//     scheme = "bearer",
-//     bearerFormat = "JWT"
-// )
-// public class SwaggerConfig {
-// }
-
 
 package com.example.demo.config;
 
@@ -57,6 +19,23 @@ public class SwaggerConfig {
                 ));
         }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // package com.example.demo.config;
 

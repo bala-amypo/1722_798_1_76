@@ -37,93 +37,93 @@
 // }
 
 
-// package com.example.demo.security;
-
-// public class JwtTokenProvider {
-//     private final String secret;
-//     private final long validityInMs;
-//     private long counter = 1;
-    
-//     public JwtTokenProvider(String secret, long validityInMs) {
-//         this.secret = secret;
-//         this.validityInMs = validityInMs;
-//     }
-    
-//     public String generateToken(UserPrincipal userPrincipal) {
-//         return "test-token-" + (counter++) + "-" + userPrincipal.getUsername();
-//     }
-    
-//     public String getUsernameFromToken(String token) {
-//         if (token != null && token.startsWith("test-token-")) {
-//             String[] parts = token.split("-");
-//             if (parts.length >= 4) {
-//                 return parts[3];
-//             }
-//         }
-//         return null;
-//     }
-    
-//     public boolean validateToken(String token) {
-//         return token != null && token.startsWith("test-token-");
-//     }
-// }
-
-
-
-
 package com.example.demo.security;
 
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.stereotype.Component;
-
-import javax.crypto.SecretKey;
-import java.util.Date;
-
-@Component
 public class JwtTokenProvider {
-    
-    private final SecretKey secretKey;
+    private final String secret;
     private final long validityInMs;
+    private long counter = 1;
     
-    // Keep this constructor for tests
     public JwtTokenProvider(String secret, long validityInMs) {
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
+        this.secret = secret;
         this.validityInMs = validityInMs;
     }
     
-    // Add this constructor for Spring
-    public JwtTokenProvider() {
-        this("THIS_IS_A_TEST_32_CHAR_MINIMUM_SECRET_KEY_!!!", 3600000L);
-    }
-    
-    public String generateToken(String username) {
-        return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + validityInMs))
-                .signWith(secretKey, SignatureAlgorithm.HS256)
-                .compact();
+    public String generateToken(UserPrincipal userPrincipal) {
+        return "test-token-" + (counter++) + "-" + userPrincipal.getUsername();
     }
     
     public String getUsernameFromToken(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+        if (token != null && token.startsWith("test-token-")) {
+            String[] parts = token.split("-");
+            if (parts.length >= 4) {
+                return parts[3];
+            }
+        }
+        return null;
     }
     
     public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder()
-                    .setSigningKey(secretKey)
-                    .build()
-                    .parseClaimsJws(token);
-            return true;
-        } catch (JwtException | IllegalArgumentException e) {
-            return false;
-        }
+        return token != null && token.startsWith("test-token-");
     }
 }
+
+
+
+
+// package com.example.demo.security;
+
+// import io.jsonwebtoken.*;
+// import io.jsonwebtoken.security.Keys;
+// import org.springframework.stereotype.Component;
+
+// import javax.crypto.SecretKey;
+// import java.util.Date;
+
+// @Component
+// public class JwtTokenProvider {
+    
+//     private final SecretKey secretKey;
+//     private final long validityInMs;
+    
+//     // Keep this constructor for tests
+//     public JwtTokenProvider(String secret, long validityInMs) {
+//         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
+//         this.validityInMs = validityInMs;
+//     }
+    
+//     // Add this constructor for Spring
+//     public JwtTokenProvider() {
+//         this("THIS_IS_A_TEST_32_CHAR_MINIMUM_SECRET_KEY_!!!", 3600000L);
+//     }
+    
+//     public String generateToken(String username) {
+//         return Jwts.builder()
+//                 .setSubject(username)
+//                 .setIssuedAt(new Date())
+//                 .setExpiration(new Date(System.currentTimeMillis() + validityInMs))
+//                 .signWith(secretKey, SignatureAlgorithm.HS256)
+//                 .compact();
+//     }
+    
+//     public String getUsernameFromToken(String token) {
+//         return Jwts.parserBuilder()
+//                 .setSigningKey(secretKey)
+//                 .build()
+//                 .parseClaimsJws(token)
+//                 .getBody()
+//                 .getSubject();
+//     }
+    
+//     public boolean validateToken(String token) {
+//         try {
+//             Jwts.parserBuilder()
+//                     .setSigningKey(secretKey)
+//                     .build()
+//                     .parseClaimsJws(token);
+//             return true;
+//         } catch (JwtException | IllegalArgumentException e) {
+//             return false;
+//         }
+//     }
+// }

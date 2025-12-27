@@ -10,7 +10,7 @@ public class CustomUserDetailsService {
     private final AtomicLong idCounter = new AtomicLong(1);
     
     public CustomUserDetailsService() {
-        // Initialize with some test users
+
         register("u1@example.com", "pass1", "COMPLIANCE_OFFICER");
         register("u2@example.com", "pass2", "HR_MANAGER");
         register("u3@example.com", "p3", "ADMIN");

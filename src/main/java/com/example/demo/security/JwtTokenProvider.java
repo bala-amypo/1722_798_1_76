@@ -8,21 +8,18 @@ public class JwtTokenProvider {
     private final long validityInMs;
     private long counter = 1;
     
-    // Constructor for tests (required by test cases)
+   
     public JwtTokenProvider(String secret, long validityInMs) {
         this.secret = secret;
         this.validityInMs = validityInMs;
     }
     
-    // Constructor for Spring (no-arg)
+    
     public JwtTokenProvider() {
         this("THIS_IS_A_TEST_32_CHAR_MINIMUM_SECRET_KEY_!!!", 3600000L);
     }
     
-    /**
-     * Generate a JWT token for a user
-     * Format: "test-token-{counter}-{username}"
-     */
+    
     public String generateToken(UserPrincipal userPrincipal) {
         String token = "test-token-" + (counter++) + "-" + userPrincipal.getUsername();
         System.out.println("Generated token: " + token); // For debugging

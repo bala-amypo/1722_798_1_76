@@ -24,11 +24,9 @@ public class RelationshipDeclarationServiceImpl implements RelationshipDeclarati
     
     @Override
     public RelationshipDeclaration declareRelationship(RelationshipDeclaration declaration) {
-        // Check if person exists
         PersonProfile person = personRepository.findById(declaration.getPersonId())
                 .orElseThrow(() -> new ApiException("Person not found"));
         
-        // Update person's relationshipDeclared flag
         if (person.getRelationshipDeclared() == null || !person.getRelationshipDeclared()) {
             person.setRelationshipDeclared(true);
             personRepository.save(person);
@@ -56,6 +54,21 @@ public class RelationshipDeclarationServiceImpl implements RelationshipDeclarati
         return relationshipRepository.findAll();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

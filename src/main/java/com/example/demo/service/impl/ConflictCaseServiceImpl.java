@@ -25,7 +25,7 @@ public class ConflictCaseServiceImpl implements ConflictCaseService {
     
     @Override
     public ConflictCase createCase(ConflictCase conflictCase) {
-        // Set default status if null
+
         if (conflictCase.getStatus() == null || conflictCase.getStatus().trim().isEmpty()) {
             conflictCase.setStatus("OPEN");
         }

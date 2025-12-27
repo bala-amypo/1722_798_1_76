@@ -24,11 +24,11 @@ public class ConflictFlagServiceImpl implements ConflictFlagService {
     
     @Override
     public ConflictFlag addFlag(ConflictFlag flag) {
-        // Check if case exists
+    
         ConflictCase conflictCase = caseRepository.findById(flag.getCaseId())
                 .orElseThrow(() -> new ApiException("Conflict case not found"));
         
-        // Update case risk level based on flag severity
+    
         if (flag.getSeverity() != null && !flag.getSeverity().trim().isEmpty()) {
             conflictCase.setRiskLevel(flag.getSeverity());
             caseRepository.save(conflictCase);

@@ -22,7 +22,7 @@ public class VendorEngagementController {
     @PostMapping
     public ResponseEntity<?> addEngagement(@RequestBody VendorEngagementRecord record) {
         try {
-            // Validate required fields
+        
             if (record.getEmployeeId() == null) {
                 return ResponseEntity.badRequest().body("Employee ID is required");
             }
@@ -58,6 +58,28 @@ public class VendorEngagementController {
         return ResponseEntity.ok(engagements);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

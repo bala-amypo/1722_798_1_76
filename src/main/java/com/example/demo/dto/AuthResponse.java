@@ -5,7 +5,7 @@ public class AuthResponse {
     private String email;
     private String message;
     
-    // Constructors
+  
     public AuthResponse() {}
     
     public AuthResponse(String token, String email) {
@@ -19,7 +19,7 @@ public class AuthResponse {
         this.message = message;
     }
     
-    // Getters and Setters
+
     public String getToken() {
         return token;
     }

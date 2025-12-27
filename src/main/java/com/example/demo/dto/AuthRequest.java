@@ -5,7 +5,7 @@ public class AuthRequest {
     private String password;
     private String role;
     
-    // Constructors
+   
     public AuthRequest() {}
     
     public AuthRequest(String email, String password) {
@@ -19,7 +19,7 @@ public class AuthRequest {
         this.role = role;
     }
     
-    // Getters and Setters
+   
     public String getEmail() {
         return email;
     }

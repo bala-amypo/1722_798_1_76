@@ -22,28 +22,23 @@ public class JwtTokenProvider {
     
     public String generateToken(UserPrincipal userPrincipal) {
         String token = "test-token-" + (counter++) + "-" + userPrincipal.getUsername();
-        System.out.println("Generated token: " + token); // For debugging
+        System.out.println("Generated token: " + token);
         return token;
     }
     
-    /**
-     * Generate token directly from username (for testing)
-     */
+    
     public String generateToken(String username) {
         String token = "test-token-" + (counter++) + "-" + username;
         System.out.println("Generated token for " + username + ": " + token);
         return token;
     }
     
-    /**
-     * Extract username from token
-     * Token format: "test-token-{number}-{username}"
-     */
+    
     public String getUsernameFromToken(String token) {
         if (token != null && token.startsWith("test-token-")) {
             String[] parts = token.split("-");
             if (parts.length >= 4) {
-                // Username is everything after "test-token-{number}-"
+                
                 StringBuilder username = new StringBuilder();
                 for (int i = 3; i < parts.length; i++) {
                     if (i > 3) username.append("-");
@@ -55,18 +50,13 @@ public class JwtTokenProvider {
         return null;
     }
     
-    /**
-     * Validate token - checks if token starts with "test-token-"
-     */
+  
     public boolean validateToken(String token) {
         boolean isValid = token != null && token.startsWith("test-token-");
         System.out.println("Token validation for " + token + ": " + isValid);
         return isValid;
     }
     
-    /**
-     * Get token counter (for testing)
-     */
     public long getTokenCounter() {
         return counter;
     }
